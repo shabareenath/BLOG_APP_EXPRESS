@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Home Page</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>BLOG USING EXPRESS</h1>
+      <nav>
+        <a href="/posts">POSTS</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="create-post">
+        <% if(locals.title && locals.content) {%>
+        <h2>Edit Post</h2>
+        <% }else{ %>
+        <h2>Create New Post</h2>
+
+      <% } %>
+
+        <form id="createPostForm" action=<%= (id!==undefined && id!==null) ? '/update' : '/submit' %> method="POST">
+          
+          <% if (id !== null && id !== undefined) { %>
+            <!-- Hidden input to hold the post ID if we're editing -->
+            <input type="hidden" name="id" value="<%= id %>">
+        <% } %>
+
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter the title"
+            value="<%= title || '' %>"
+            required
+          />
+
+          <label for="content">Content:</label>
+          <textarea
+            id="content"
+            name="content"
+            placeholder="Enter the content"
+            required
+          ><%= content %></textarea>
+
+          <% if(locals.title && locals.content){ %><button type="submit">
+            Update Post</button
+          ><% }else{ %><button type="submit">Submit Post</button><% } %>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>Copyright © <%= new Date().getFullYear() %></p>
+    </footer>
+  </body>
+</html>

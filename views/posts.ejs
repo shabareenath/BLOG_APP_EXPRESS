@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Posts</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
+    <header>
+        <h1>My Blog</h1>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="posts-list">
+            <!-- Display posts -->
+            <% if (posts.length > 0) { %>
+                <h2>All Posts</h2>
+                <ul>
+                    <% posts.forEach(post => { %>
+                        <li>
+                            <h3><%= post.title %></h3>
+                            <p><%= post.content %></p>
+                            <form action="/delete" method="POST" style="display: inline">
+                                <input type="hidden" name="id" value="<%= post.id %>" />
+                                <button type="submit">Delete</button>
+                            </form>
+                            <form action="/edit" method="POST" style="display: inline">
+                                <input type="hidden" name="id" value="<%= post.id %>" />
+                                <button type="submit">Edit</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <h2>No Posts</h2>
+            <% } %>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright © 2024</p>
+    </footer>
+</body>
+</html>
